@@ -1,4 +1,4 @@
-import { Product } from './index';
+import { Product } from '../../pages/products/index';
 
 export default function ProductList({ products }: { products: Product[] }) {
   return (
@@ -17,7 +17,6 @@ export default function ProductList({ products }: { products: Product[] }) {
           </p>
         </div>
       ))}
-
     </div>
   );
 }

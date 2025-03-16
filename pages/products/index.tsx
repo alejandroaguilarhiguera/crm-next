@@ -1,4 +1,4 @@
-import ProductList from "./ProductList";
+import ProductList from "../../src/components/ProductList";
 export interface Product     {
   "id": number;
   "documentId": string;
@@ -24,7 +24,7 @@ interface PayloadProducts {
 
 export async function getServerSideProps() {
   const res = await fetch("http://localhost:1337/api/products");
-  const { data: products } = await res.json();
+  const { data: products }: PayloadProducts = await res.json();
 
   return {
     props: { products },
