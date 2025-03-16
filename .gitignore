@@ -1,4 +1,4 @@
 node_modules
-.nev
+.env
 .env.example
 .next/*
