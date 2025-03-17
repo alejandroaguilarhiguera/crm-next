@@ -6,6 +6,10 @@
       "dom.iterable",
       "esnext"
     ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"] // Alias general para todo dentro de src
+    },
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -21,9 +25,11 @@
   },
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-, "postcss.config.mjs", "next.config.js"  ],
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "postcss.config.mjs",
+    "next.config.js"
+  ],
   "exclude": [
     "node_modules"
   ]

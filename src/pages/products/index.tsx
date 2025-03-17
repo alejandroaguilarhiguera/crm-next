@@ -1,25 +1,9 @@
-import ProductList from "../../src/components/ProductList";
-export interface Product     {
-  "id": number;
-  "documentId": string;
-  "name": string;
-  "description": string | null;
-  "price": number | null;
-  "createdAt": string;
-  "updatedAt": string;
-  "publishedAt": string;
-  "locale": string;
-}
+import ProductList from "@/components/ProductList";
+import { Product, Meta } from '@/types';
+
 interface PayloadProducts {
-  data: Product[]
-  "meta": {
-    "pagination": {
-      "page": number;
-      "pageSize": number;
-      "pageCount": number;
-      "total": number;
-    }
-  }
+  data: Product[];
+  meta: Meta;
 }
 
 export async function getServerSideProps() {
