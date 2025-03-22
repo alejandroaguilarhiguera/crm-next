@@ -1,4 +1,4 @@
-import { Product } from '../pages/products/index';
+import { Product } from '@/types';
 
 export default function ProductList({ products }: { products: Product[] }) {
   return (
