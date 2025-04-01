@@ -7,7 +7,7 @@ interface PayloadProducts {
 }
 
 export async function getServerSideProps() {
-  const res = await fetch("http://localhost:1337/api/products");
+  const res = await fetch(`${process.env.API_HOST}/products`);
   const { data: products }: PayloadProducts = await res.json();
 
   return {
