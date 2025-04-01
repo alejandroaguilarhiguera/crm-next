@@ -1,13 +1,8 @@
 import UserList from "@/components/UserList";
-import { User, Meta } from '@/types';
-
-interface PayloadUsers {
-  data: User[];
-  meta: Meta;
-}
+import { User } from '@/types';
 
 export async function getServerSideProps() {
-  const res = await fetch("http://localhost:1337/api/users");
+  const res = await fetch(`${process.env.API_HOST}/users`);
   const users: User[] = await res.json();
     console.log('users', users);
   return {
