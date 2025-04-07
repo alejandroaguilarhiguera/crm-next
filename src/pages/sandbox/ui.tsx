@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { Button, TextField } from "@/components/ui";
+import { Button, Input } from "@/components/ui";
+import { Textarea } from "@/components/ui/textarea"
 
 export default function SandboxPage() {
   const router = useRouter();
@@ -30,54 +31,119 @@ export default function SandboxPage() {
   };
 
   return (
-    <div>
-      <h2 className="text-xl font-bold mb-4">Controls</h2>
-      <div className="grid grid-cols-2 gap-2 w-96">
-        <Button variant="primary" onClick={() => alert("Primary clicked!")}>
-          Primary Button
+    <div className="m-4">
+      <h2 className="text-xl font-bold mb-4">ui</h2>
+      
+    <div className="grid grid-cols-2 gap-4 my-4">
+      {/* Enabled button */}
+    <div className="grid grid-cols-1 border p-2 rounded shadow-md">
+      <h4>Enabled</h4>
+      <div className="grid grid-cols-2 gap-2 ">
+        <Button variant="default" onClick={() => alert("Primary clicked!")}>
+        default
         </Button>
-        <Button variant="secondary" size="large">
-          Large Secondary Button
+        <Button variant="destructive">
+        destructive
         </Button>
-        <Button variant="success" disabled>
-          Disabled Success Button
+        <Button variant="ghost">
+        ghost
         </Button>
-        <Button variant="danger" size="small">
-          Small Danger Button
+        <Button variant="link">
+        link
         </Button>
+
+        <Button variant="outline">
+        outline
+        </Button>
+
+        <Button variant="secondary">
+        secondary
+        </Button>
+      </div>
+      </div>
+      {/* Disabled button */}
+      <div className="grid grid-cols-1 border p-2 rounded shadow-md">
+      <h4>Disabled</h4>
+      <div className="grid grid-cols-2 gap-2 ">
+        <Button variant="default" disabled onClick={() => alert("Primary clicked!")}>
+        default
+        </Button>
+        <Button variant="destructive" disabled>
+        destructive
+        </Button>
+        <Button variant="ghost" disabled>
+        ghost
+        </Button>
+        <Button variant="link" disabled>
+        link
+        </Button>
+
+        <Button variant="outline" disabled>
+        outline
+        </Button>
+
+        <Button variant="secondary" disabled>
+        secondary
+        </Button>
+      </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-2 w-96">
-        <div>
-          <label htmlFor="name">name</label>
-          <TextField tabIndex={1} id="name" name="name" />
-        </div>
-        <div>
-          <label htmlFor="email">email</label>
-          <TextField tabIndex={2} type="email" name="email" id="email" />
-        </div>
-        <div>
-          <label htmlFor="address">address</label>
-          <TextField tabIndex={3} id="address" />
-        </div>
-        <div>
-          <label htmlFor="birth">Date of Birth</label>
-          <TextField tabIndex={4} type="date" id="birth" />
+      {/* Enabled Input */}
+      <div className="grid grid-cols-1">
+        <h4>Input enabled</h4>
+        <div className="grid grid-cols-2 gap-2">
+          <div>
+            <label htmlFor="name">name</label>
+            <Input id="name" name="name" />
+          </div>
+          <div>
+            <label htmlFor="email">email</label>
+            <Input type="email" name="email" id="email" />
+          </div>
+          <div>
+            <label htmlFor="address">address</label>
+            <Input id="address" />
+          </div>
+          <div>
+            <label htmlFor="birth">Date of Birth</label>
+            <Input type="date" id="birth" />
+          </div>
+
+          <div>
+            <label htmlFor="description">Description</label>
+            <Textarea id="description" />
+          </div>
+
         </div>
       </div>
 
-      <div>
-        <div>
-          <label htmlFor="search">Search</label>
-          <TextField
-            tabIndex={5}
-            placeholder="City, State, street"
-            id="search"
-            value={search}
-            onChange={handleSearchChange}
-          />
+      {/* Disabled Input */}
+      <div className="grid grid-cols-1">
+        <h4>Input disabled</h4>
+        <div className="grid grid-cols-2 gap-2">
+          <div>
+            <label htmlFor="name">name</label>
+            <Input name="name" disabled />
+          </div>
+          <div>
+            <label htmlFor="email">email</label>
+            <Input type="email" name="email" disabled />
+          </div>
+          <div>
+            <label htmlFor="address">address</label>
+            <Input name="address" disabled/>
+          </div>
+          <div>
+            <label htmlFor="birth">Date of Birth</label>
+            <Input type="date" disabled />
+          </div>
+
         </div>
       </div>
+
+    </div>
+
+  
     </div>
   );
 }
