@@ -1,13 +1,21 @@
 import ProductList from "@/components/ProductList";
-import { Product, Meta } from '@/types';
+import { Product } from '@/types';
+import { useState } from 'react';
+import {
+  Container,
+  Grid,
+  Typography,
+  Button,
+  Breadcrumbs,
+} from '@mui/material';
+import Link from "next/link";
 
 interface PayloadProducts {
-  data: Product[];
-  // meta: Meta;
+  products: Product[];
 }
 
 export async function getServerSideProps() {
-  const res = await fetch(`${process.env.API_HOST}/products`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/products`);
   const products: Product[] = await res.json();
 
   return {
@@ -16,11 +24,28 @@ export async function getServerSideProps() {
 }
 
 
-export default function ProductsPage({ products }: { products: Product[] }) {
+export default function ProductsPage({ products }: PayloadProducts) {
+  const [productList, setProductList] = useState(products);
+
+  const handleDelete = (id: number) => {
+    setProductList((prev) =>
+      prev.filter((product) => product.id !== id)
+    );
+  };
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h2 className="text-xl font-bold mb-4">Lista de Productos</h2>
-      <ProductList products={products} />
-    </div>
+    <Container>
+      <Typography variant="h4" className="text-xl font-bold mb-4">
+        List of products
+      </Typography>
+      <Grid container sx={{ justifyContent: 'space-between', alignItems: 'center',  mb: 2 }}>
+        <Breadcrumbs aria-label="breadcrumb">
+          <Typography sx={{ color: 'text.primary' }}>Products</Typography>
+        </Breadcrumbs>
+        <Link href="/products/new">
+          <Button variant="contained">New Product</Button>
+        </Link>
+      </Grid>
+      <ProductList handleDelete={handleDelete} products={productList} />
+    </Container>
   );
 }

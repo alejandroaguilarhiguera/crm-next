@@ -1,21 +1,16 @@
 // src/pages/products/[id].tsx
 import { GetServerSideProps } from 'next';
-import { useRouter } from 'next/router';
-import ProductForm, { ProductFormData } from '@/components/ProductForm';
-import { Box, Button, Stack, Typography } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import SaveIcon from '@mui/icons-material/Save';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Box, Container, Typography } from '@mui/material';
+import ProductLayout from '@/components/ProductLayout';
+import { Product } from '@/types';
 
 interface ProductDetailPageProps {
-  product: ProductFormData | null;
-  mode: 'view' | 'edit';
+  product: Product | null;
+  mode: 'new' | 'view' | 'edit';
   id: string;
 }
 
 export default function ProductDetailPage({ product, mode, id }: ProductDetailPageProps) {
-
   if (!product) {
     return (
       <Box sx={{ textAlign: 'center', py: 10 }}>
@@ -26,34 +21,28 @@ export default function ProductDetailPage({ product, mode, id }: ProductDetailPa
     );
   }
 
-
-
   return (
-    <Box>
-      <ProductForm
-        mode={mode}
-        defaultValues={product}
-      />
-    </Box>
+    <Container>
+      <ProductLayout mode={mode} product={product} />
+    </Container>
   );
 }
 
 // SSR para el Pages Router
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.params!;
-  const mode = (context.query.mode as 'view' | 'edit') || 'view';
-  console.log('id___'+id)
+  const mode = (context.query.mode as 'view' | 'edit' | 'new') || 'view';
   try {
-    const res = await fetch(`${process.env.API_HOST}/products/${id}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/products/${id}`);
     
     if (!res.ok) {
       return { props: { product: null, mode, id } };
     }
 
-    const product: ProductFormData = await res.json();
+    const product: Product = await res.json();
     return { props: { product, mode, id } };
   } catch (error) {
     console.error('Error fetching product:', error);
-    return { props: { product: null, mode, id } };
+    return { props: { product: null, mode: 'new', id } };
   }
 };
